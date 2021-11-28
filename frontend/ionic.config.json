@@ -1,0 +1,7 @@
+{
+  "name": "waar-wil-ik-wonen",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

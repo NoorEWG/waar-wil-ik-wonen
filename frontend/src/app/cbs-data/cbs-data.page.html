@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>cbs-data</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="cbs-data-flex">
+    
+    <div class="cbs-data-input">
+      
+      <div class="cbs-data-flex">
+        <span class="cbs-data-label">Postcode</span>
+        <input placeholder='vul een postcode in' (keyup)='postcode=$event.target.value;' [(ngModel)]="postcode">
+      </div>
+      
+      <div>
+        <button class="btn-primary" (click)="getPostcodeData();">Data per postcode (4 cijfers</button>
+      </div>
+      
+      <br>
+      
+      <div class="cbs-data-flex">
+        <div class="cbs-data-label">Gemeente</div>
+        <input placeholder='vul een gemeente in' (keyup)='gemeente=$event.target.value;' [(ngModel)]="gemeente">
+      </div>
+      
+      <div class="cbs-data-flex">
+        <span class="cbs-data-label">Jaar</span>
+        <input placeholder='vul een jaar in' (keyup)='jaar=$event.target.value;' [(ngModel)]="jaar">
+      </div>
+      
+      <div>
+        <button class="btn-primary" (click)="getBevolkingData();">Data per gemeente en jaar</button>
+      </div>
+      
+      <br>
+      
+      <div class="cbs-data-flex">
+        <div class="cbs-data-label">Gemeente</div>
+        <input placeholder='vul een gemeente in' (keyup)='gemeente=$event.target.value;' [(ngModel)]="gemeente">
+      </div>
+      
+      <div>
+        <button class="btn-primary" (click)="getBevolkingJaarData();">Data per gemeente alle beschikbare jaren</button>
+      </div>
+
+      <ion-item *ngIf="listOptions && listOptions.length > 0">
+        <ion-label>Selecteer een parameter</ion-label>
+        <select [(ngModel)]=selectedParameter (change)="getDataPerParameter()">
+          <option *ngFor='let i of listOptions' [value]="i">{{ i }}</option>
+        </select>       
+      </ion-item>
+    </div>
+  
+    <div>
+      <div *ngIf="showData === 'postcode'">
+        <div *ngFor="let item of postcodeData | keyvalue" >
+          <span class="keywidth">{{item.key}}</span><span>{{item.value}}</span>
+        </div>
+      </div>
+
+      <div *ngIf="showData === 'bevolking'">
+        <div *ngFor="let item of bevolkingData | keyvalue" >
+          <span class="keywidth">{{item.key}}</span><span>{{item.value}}</span>
+        </div>
+      </div>
+
+      <div *ngIf="selectedParameterData && showData === 'bevolkingAlleJaren'">
+        <h4 *ngIf="selectedParameter">Geselecteerde parameter: {{ selectedParameter }}</h4>
+        <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions" [(update)]="updateFlag"></highcharts-chart>
+            <div *ngFor="let item of selectedParameterData">
+          <span class="keywidth">{{item.jaar}}</span><span>{{item.value}}</span>
+        </div>
+      </div>
+  
+    </div>
+</div>
+
+</ion-content>

@@ -1,0 +1,13 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "waar-wil-ik-wonen",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}
